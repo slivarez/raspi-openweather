@@ -18,7 +18,45 @@ to your location):
 }
 ```
 
-Screenshot
+Optional settings (with their defaults):
+
+- `temp_unit`: `metric` (default), `imperial` or `standard` (Kelvin)
+- `wind_unit`: `kmph` (default) or `mps`; with `imperial` units wind speed is always shown in mph
+
+## Installation and running
+
+```bash
+pip install -r requirements.txt
+./weather.sh                  # or: python open_weather.py
+```
+
+Command line options (see `python open_weather.py --help`):
+
+- `-c/--config PATH` - use a different config file (default: `open_weather.json`)
+- `--debug` - verbose logging and data from `fixtures/weather.json` instead of the API
+- `--windowed` - run in a window instead of full screen
+- `--refresh-interval SECONDS` - how often to fetch new weather data (default: 900)
+
+Exit with `ESC` or by tapping the upper right corner of the screen.
+
+## Development
+
+The code lives in the `raspi_openweather` package:
+
+- `config.py` - settings and config file loading
+- `weather.py` - API client with retries, response parsing and background updater
+- `formatting.py` - pure presentation helpers (units, times, day/night)
+- `display.py` - pygame rendering
+- `app.py` - command line interface and main loop
+
+```bash
+pip install -r requirements-dev.txt
+pytest --cov          # run tests (no display needed)
+ruff check .          # lint
+ruff format .         # format
+```
+
+## Screenshot
 
 ![screenshot](screenshots/20250920_berlin.png)
 
